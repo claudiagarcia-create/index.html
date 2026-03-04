@@ -1,4 +1,131 @@
- <div class="max-w-6xl mx-auto">
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brindemos solución - Farmatodo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
+       
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #004a99;
+            color: white;
+        }
+
+        .wheel-container {
+            position: relative;
+            width: 320px;
+            height: 320px;
+            margin: 0 auto;
+        }
+
+        .wheel {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 8px solid #ffffff;
+            position: relative;
+            overflow: hidden;
+            transition: transform 4s cubic-bezier(0.15, 0, 0.15, 1);
+            background: white;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+
+        .arrow {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-top: 30px solid #e11d48;
+            z-index: 10;
+        }
+
+        .slice {
+            position: absolute;
+            width: 50%;
+            height: 50%;
+            transform-origin: 100% 100%;
+            left: 0;
+            top: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .result-box {
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 1.25rem;
+            border-radius: 0.75rem;
+            background: white;
+            color: #374151;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+            border-left: 4px solid #004a99;
+            font-size: 0.95rem;
+            line-height: 1.4;
+        }
+
+        #instructions-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 31, 63, 0.95);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+
+    <div id="instructions-overlay">
+        <div class="bg-white rounded-3xl shadow-2xl max-w-2xl w-full p-8 md:p-10 overflow-y-auto max-h-[90vh]">
+            <div class="text-center mb-6">
+                <span class="bg-blue-100 text-blue-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Actividad</span>
+                <h2 class="text-3xl font-black text-blue-900 mt-2 italic">Brindemos solución</h2>
+                <p class="text-blue-600 font-bold uppercase tracking-tighter text-sm mt-1">Conducta 3</p>
+            </div>
+           
+            <div class="space-y-4 text-gray-700 leading-relaxed text-sm md:text-base">
+                <ul class="list-disc ml-5 space-y-2">
+                    <li>Reúnete con tu equipo y organícense en parejas.</li>
+                    <li>Dentro de cada pareja, uno asumirá el rol de cliente y el otro el de colaborador.</li>
+                    <li>Si te corresponde el rol de cliente, gira las ruletas:
+                        <ul class="list-[circle] ml-6 mt-2 space-y-2 text-gray-600">
+                            <li>En la primera ruleta encontrarás la necesidad o problema de un cliente que visita Farmatodo.</li>
+                            <li>En la segunda ruleta tendrás el contexto de la condición en las que sucede la interacción entre el colaborador y el cliente.</li>
+                        </ul>
+                    </li>
+                    <li class="mt-2">Si estás en el rol de colaborador, dispones de un minuto para proponer soluciones a la situación planteada.</li>
+                </ul>
+               
+                <div class="bg-blue-50 p-4 rounded-xl border-l-4 border-blue-500 mt-4">
+                    <p class="mb-2">Al finalizar tu intervención, el resto del grupo analizará la interacción y reflexionará sobre las siguientes preguntas:</p>
+                    <ul class="list-disc ml-5 space-y-1 font-semibold text-blue-900">
+                        <li>¿Escuchó activamente al cliente?</li>
+                        <li>¿Ofreció una solución factible?</li>
+                        <li>¿Acompañó al cliente hasta el final del proceso?</li>
+                    </ul>
+                </div>
+            </div>
+
+            <button onclick="hideInstructions()" class="w-full mt-8 bg-blue-700 hover:bg-blue-800 text-white font-black py-4 rounded-2xl shadow-lg transition text-lg">
+                ¡ENTENDIDO! COMENZAR
+            </button>
+        </div>
+    </div>
+
+    <div class="max-w-6xl mx-auto">
         <header class="text-center mb-8">
             <h1 class="text-4xl font-extrabold text-white mb-2 italic uppercase tracking-tight">Brindemos solución</h1>
             <p class="text-blue-100 text-lg">Conducta 3: Brindo soluciones al cliente</p>
@@ -77,7 +204,7 @@
 
     <script>
         // CONFIGURACIÓN: PEGA AQUÍ TU URL DE GOOGLE APPS SCRIPT
-        const URL_GOOGLE_SHEETS = "https://script.google.com/macros/s/AKfycbxlWKbb3VqvaBFL5pe-dfey1T01e6uMYO5lVhMleGC3RYTCGZiv_hgWJo0_9953rH4Azg/exec";
+        const URL_GOOGLE_SHEETS = "TU_URL_AQUI";
 
         const storeList = ["ACERINA", "FARMACIA EL BOSQUE", "FARMACIA EL PARQUE", "FARMACIA JIRAHARA", "FARMACIA LA CIENCIA", "FARMACIA LA FLORESTA", "FARMACIA SALAS", "FARMACIA ZULY", "FARMATODO ACERO", "FARMATODO ACONCAGUA", "FARMATODO ADELMIRA", "FARMATODO AGATA", "FARMATODO AGUAMARINA", "FARMATODO ALBITA", "FARMATODO ALFA", "FARMATODO ALPES", "FARMATODO ALTOZANO", "FARMATODO ALUMINIO", "FARMATODO AMATISTA", "FARMATODO AMBAR", "FARMATODO ANITA", "FARMATODO ANTINEA", "FARMATODO ARABELLA", "FARMATODO ARAGUANEY", "FARMATODO ARAURE", "FARMATODO ARCO", "FARMATODO ARELIS", "FARMATODO AUTANA", "FARMATODO AV MORAN", "FARMATODO BAMBU", "FARMATODO BARROCA", "FARMATODO BELLA VISTA", "FARMATODO BOULEVART DE CATIA", "FARMATODO CAFETAL", "FARMATODO CAMINITO", "FARMATODO CARICUAO", "FARMATODO CARIRUBANA", "FARMATODO CARLOTA", "FARMATODO CEDRO", "FARMATODO CHAPARRAL", "FARMATODO CIELO", "FARMATODO CLAVELINAS", "FARMATODO CONGRESO", "FARMATODO CORAL", "FARMATODO CORINA", "FARMATODO COSTA LAGO", "FARMATODO COSTA SUR", "FARMATODO CRISTAL", "FARMATODO CUARTEL BARALT", "FARMATODO CUARZO", "FARMATODO DANIELA", "FARMATODO DANILA", "FARMATODO DAVID", "FARMATODO DAYSI", "FARMATODO DELTA", "FARMATODO DIAMANTE", "FARMATODO EL AVILA", "FARMATODO EL SAMAN", "FARMATODO ELEANOR", "FARMATODO ELIZABETH", "FARMATODO ELSIS", "FARMATODO ENSO", "FARMATODO ESCALANTE", "FARMATODO ESMERALDA", "FARMATODO ESTRELLA MARINA", "FARMATODO EXPRESO", "FARMATODO FRANCISCO", "FARMATODO FUERZAS ARMADAS", "FARMATODO GABRIEL", "FARMATODO GERMAN", "FARMATODO GINEBRA", "FARMATODO GISELA", "FARMATODO GRACIELA", "FARMATODO GRANATE", "FARMATODO GREGORIO", "FARMATODO GRISELDA", "FARMATODO GUATAPARO", "FARMATODO HERNAN DE JESUS", "FARMATODO INDIGO", "FARMATODO INDIO MARA", "FARMATODO IRENE", "FARMATODO ISABELLA", "FARMATODO JADE", "FARMATODO JENNIFER", "FARMATODO JOSE MIGUEL", "FARMATODO JUAN BAUTISTA", "FARMATODO JUNIN", "FARMATODO KAVAC", "FARMATODO LA ASUNCION", "FARMATODO LA ESQUINA", "FARMATODO LA JOYA", "FARMATODO LA MATERNIDAD", "FARMATODO LA PLATA", "FARMATODO LA RESTINGA", "FARMATODO LA VELA", "FARMATODO LAGOMAR", "FARMATODO LAS SALINAS", "FARMATODO LIDER", "FARMATODO LILIANA", "FARMATODO LOS ARENALES", "FARMATODO LOS CEREZOS", "FARMATODO LOS JARDINES DEL VALLE", "FARMATODO LUIS", "FARMATODO LUZMAR", "FARMATODO MADRE CABRINI", "FARMATODO MALVINA", "FARMATODO MANANTIAL", "FARMATODO MANGLAR", "FARMATODO MARFIL", "FARMATODO MARIA ANTONIETA", "FARMATODO MARIANA", "FARMATODO MARIAS", "FARMATODO MARINERA", "FARMATODO MARTA", "FARMATODO MARYCARMEN", "FARMATODO MELANIE", "FARMATODO MERCEDES", "FARMATODO METROCENTER", "FARMATODO MEYBY", "FARMATODO MIGUEL", "FARMATODO MILAGROS", "FARMATODO MIRAMONTES", "FARMATODO MIRENA", "FARMATODO MONICA", "FARMATODO MONJES", "FARMATODO MONTANAL", "FARMATODO MUCURA", "FARMATODO NACAR", "FARMATODO NATALIA", "FARMATODO NELLYS", "FARMATODO NERIDA", "FARMATODO NUEVA CARACAS", "FARMATODO OCUMITO", "FARMATODO ODISEA", "FARMATODO OFELIA", "FARMATODO OLIVO", "FARMATODO OMEGA", "FARMATODO OPALO", "FARMATODO ORO", "FARMATODO ORO NEGRO", "FARMATODO PALMA REAL", "FARMATODO PAMPATAR", "FARMATODO PASEO CARONI", "FARMATODO PATRIA", "FARMATODO PEDREGAL", "FARMATODO PEDRO LUIS", "FARMATODO PERLA", "FARMATODO PIEDRA LUNA", "FARMATODO PIRINEOS", "FARMATODO PLAYA GRANDE", "FARMATODO PLAYA LIDO", "FARMATODO PLAZA CARICUAO", "FARMATODO PORVENIR", "FARMATODO PUNCERES", "FARMATODO RAFAEL TEODORO", "FARMATODO REGULO", "FARMATODO RIOFARO", "FARMATODO ROBLE", "FARMATODO ROMANA", "FARMATODO ROSARIO", "FARMATODO ROXANA", "FARMATODO RUBI", "FARMATODO SAMBIL LA CANDELARIA 2", "FARMATODO SAN PASTOR", "FARMATODO SCARLET", "FARMATODO SERRANIA", "FARMATODO SERVANDO", "FARMATODO SETENTA", "FARMATODO SIETE COLINAS", "FARMATODO SORAYA", "FARMATODO SUSANA", "FARMATODO TEO", "FARMATODO TEPUY", "FARMATODO TEREPAIMA", "FARMATODO TOBOGAN", "FARMATODO TOPACIO", "FARMATODO TORRE EUROPA", "FARMATODO TRINCHERAS", "FARMATODO TRUJILLO", "FARMATODO TUNANTAL", "FARMATODO TURQUESA", "FARMATODO UMBRAL", "FARMATODO UNDA", "FARMATODO VENECIA", "FARMATODO VENTUARI", "FARMATODO VERTIENTE", "FARMATODO VILLA GRANADA", "FARMATODO YADIRA", "FARMATODO ZAFIRO", "FARMATODO ZONA FRANCA", "FARMATODO CHUAO", "FARMATODO ZONA INDUSTRIAL", "ONIX", "FARMATODO LA VEREDA", "FARMATODO ZUBILLAGA HERMANOS", "FARMATODO LAS DELICIAS", "FARMATODO VALLE DE LA PASCUA", "ESTACION SUR CHARALLAVE", "FARMATODO LA CASTELLANA", "CECILIO ACOSTA", "FARMATODO LA ISABELICA", "FARMATODO MAIQUETIA", "FARMATODO CUMBRES", "FARMATODO OBELISCO", "FARMATODO ORINOCO", "CENTRO ANDINO", "PARQUE LA 93", "CAJICA", "USAQUEN", "NAVARRA", "COUNTRY", "HAYUELOS", "CALLE 74", "SANTA ISABEL", "NORMANDIA", "CENTRO INTERNACIONAL", "CALLE 170", "TITAN", "PEPE SIERRA", "BELMIRA", "CALLE 119", "CENTRO COMERCIAL UNICENTRO", "CEDRITOS 1", "LA FLORA", "LA CABRERA", "CEDRITOS 2", "PLAZA DEL PARQUE", "CALLE 80", "VILLA COUNTRY", "CHIA CAJICA", "BELLA SUIZA", "CENTRO COMERCIAL SANTAFE", "VILLA CAROLINA", "ATLANTIS", "SUBA CAMPANELLA", "COLORES", "PLAZA CENTRAL", "SABANETA", "COLINA", "CENTRO MAYOR", "SALITRE PLAZA", "CHIPICHAPE", "PASADENA", "CARRERA 16", "SAN PEDRO", "GALERIAS", "CALLE 147", "CALLE 127", "NOGAL", "PLAZA EL SOL", "BRITALIA NORTE", "COSMOS", "AUTONORTE", "EL PRADO SANTA MARTA", "NOVALITO", "ALTOS DEL PRADO", "SIERRA NEVADA", "CARRERA 13", "GUATAPURI", "MALL PLAZA BARRANQUILLA", "SALITRE", "RODADERO", "VIVA BARRANQUILLA", "PLAZA CAMPESTRE", "CONECTA", "GRAN ESTACION", "EL RECREO", "PRIMAVERA URBANA", "SAN MARTIN", "ANTARES", "AVENIDA 19", "CALLE 100", "COTA", "LA CALLEJA", "CC SAN NICOLAS", "NIEVES", "ROSALES", "RINCON CHICO", "MIRAMAR", "EL BUQUE", "MANGA", "CASTILLO GRANDE", "DIVER PLAZA", "PROVENZA", "PEDRO HEREDIA", "CIUDAD AMURALLADA", "CALLE 84", "BERNARDO", "QUINTAS DE DON SIMON", "VALLE DE LILI", "AV 3RA NORTE", "PANCE", "CIUDAD JARDIN", "LIBERTADORES", "LIMONAR", "VARIANTE CHIA", "SAN LUCAS", "LA SEBASTIANA", "LOS PARRA", "VERSALLES", "UNICENTRO CALI", "RUITOQUE", "AVENIDA LAS VEGAS", "EL TESORO", "GRANADA", "AVENIDA DEL RIO", "LOMA DE LOS BERNAL", "MILLA DE ORO", "LA CEIBA 2", "MALL DEL ESTE", "LAURELES", "CC COUNTRY MALL", "CIUDAD DEL RIO", "GOLF", "MALL PLAZA CALI", "LA CASTELLANA", "LA CALERA", "SAN MATEO", "CENTRO CUCUTA", "CARRERA 19", "LA VISITACION", "SOTOMAYOR", "AVENIDA 0", "CARRERA 27", "CA?AVERAL", "ALTOS DE CABECERA", "LLANO GRANDE", "BARRO BLANCO", "EL CABLE7280186211159", "LA FLORIDA", "ALTO de las PALMAS", "PINARES", "CERRITOS", "AV LAS AMERICAS", "MAZUREN", "CC ARKADIA", "CC ENSUE?O", "CC MAYORCA", "AV. GUADALUPE", "LOS PATIOS", "CC SANTA FE MEDELLIN", "AVENIDA CENTENARIO", "EL VERGEL"].sort();
 
@@ -102,6 +229,98 @@
             "El cliente pide ayuda porque no encuentra lo que busca.",
             "El cliente quiere devolver un producto abierto."
         ];
+
+        const conditionSituations = [
+            "Hay mucha gente en la tienda.", "El cliente está apurado.", "El cliente se muestra molesto.",
+            "El supervisor no se encuentra.", "Hay fila en caja.", "El cliente ya preguntó a otro colaborador.",
+            "La solución requiere más tiempo del esperado.", "El cliente no quiere esperar.",
+            "El producto requiere explicación técnica.", "El cliente está acompañado y opina más de una persona.",
+            "El cliente compara con otra tienda.", "El cliente duda de todo tipo de información.",
+            "El cliente interrumpe constantemente.", "El cliente está indeciso y no planea realizar la compra en el momento.",
+            "El tiempo de atención es limitado.", "El cliente se distrae fácilmente.",
+            "El cliente quiere un producto complementario y no sabe cual", "El cliente se frustra con facilidad.",
+            "Hay poco personal en el turno y debes atender múltiples tareas.", "La información depende de validación externa."
+        ];
+
+        let results = { client: "", cond: "" };
+        let state = { client: false, cond: false };
+        let history = [];
+
+        function hideInstructions() { document.getElementById('instructions-overlay').style.display = 'none'; }
+
+        function createSlices(wheelId, list, colors) {
+            const wheel = document.getElementById(wheelId);
+            const deg = 360 / list.length;
+            list.forEach((txt, i) => {
+                const slice = document.createElement('div');
+                slice.className = 'slice';
+                slice.style.transform = `rotate(${i * deg}deg) skewY(${90 - deg}deg)`;
+                slice.style.backgroundColor = colors[i % colors.length];
+                wheel.appendChild(slice);
+            });
+        }
+
+        createSlices('wheel-client', clientSituations, ['#0056b3', '#007bff', '#3399ff', '#66b2ff']);
+        createSlices('wheel-cond', conditionSituations, ['#003366', '#004a99', '#0066cc', '#0080ff']);
+
+        let rot = { client: 0, cond: 0 };
+
+        function spin(type) {
+            const list = type === 'client' ? clientSituations : conditionSituations;
+            const wheel = document.getElementById(`wheel-${type}`);
+            const resBox = document.getElementById(`res-${type}`);
+            state[type] = false;
+            document.getElementById('save-btn').disabled = true;
+           
+            const r = Math.floor(Math.random() * 360) + 1440;
+            rot[type] += r;
+            wheel.style.transform = `rotate(-${rot[type]}deg)`;
+            resBox.innerText = "Girando...";
+            resBox.classList.add('text-gray-400');
+
+            setTimeout(() => {
+                const finalDeg = rot[type] % 360;
+                const idx = Math.floor(finalDeg / (360 / list.length));
+                results[type] = list[idx];
+                resBox.innerHTML = `<span class="text-gray-800 font-bold">${results[type]}</span>`;
+                resBox.classList.remove('text-gray-400');
+                state[type] = true;
+                if (state.client && state.cond) {
+                    document.getElementById('save-btn').disabled = false;
+                    resetTimer(); toggleTimer();
+                }
+            }, 4000);
+        }
+
+        let timer = 60, interval = null;
+        function updateT() { document.getElementById('timer').innerText = `00:${timer < 10 ? '0'+timer : timer}`; }
+        function toggleTimer() {
+            const btn = document.getElementById('timer-btn');
+            if(interval) { clearInterval(interval); interval = null; btn.innerText = "REANUDAR"; }
+            else {
+                btn.innerText = "PAUSAR";
+                interval = setInterval(() => {
+                    timer--; updateT();
+                    if(timer <= 0) { clearInterval(interval); interval = null; btn.innerText = "¡TIEMPO!"; btn.classList.add('bg-red-600'); }
+                }, 1000);
+            }
+        }
+        function resetTimer() { clearInterval(interval); interval = null; timer = 60; updateT(); document.getElementById('timer-btn').innerText = "INICIAR"; document.getElementById('timer-btn').classList.remove('bg-red-600'); }
+
+        function filterStores() {
+            const searchTerm = document.getElementById('store-search').value.toUpperCase();
+            const sel = document.getElementById('store-select');
+            const currentSelection = sel.value;
+            sel.innerHTML = '<option value="" disabled>Selecciona tu Tienda...</option>';
+            const filteredStores = storeList.filter(store => store.includes(searchTerm));
+            filteredStores.forEach(s => {
+                const o = document.createElement('option');
+                o.value = s; o.innerText = s;
+                if (s === currentSelection) o.selected = true;
+                sel.appendChild(o);
+            });
+            if (!sel.value && !currentSelection) { sel.options[0].selected = true; }
+        }
 
         // --- FUNCIÓN DE GUARDADO MODIFICADA PARA GOOGLE SHEETS ---
         function saveParticipation() {
@@ -152,3 +371,388 @@
             `).join('');
             document.getElementById('counter-badge').innerText = `${history.length} TURNOS`;
         }
+
+        window.onload = () => { filterStores(); };
+    </script>
+</body>
+</html>
+
+El mié, 4 mar 2026 a la(s) 2:20 p.m., Andreina Herrera Matute (andreina.herrera@farmatodo.com) escribió:
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brindemos solución - Farmatodo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
+       
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #004a99;
+            color: white;
+        }
+
+        .wheel-container {
+            position: relative;
+            width: 320px;
+            height: 320px;
+            margin: 0 auto;
+        }
+
+        .wheel {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 8px solid #ffffff;
+            position: relative;
+            overflow: hidden;
+            transition: transform 4s cubic-bezier(0.15, 0, 0.15, 1);
+            background: white;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+
+        .arrow {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-top: 30px solid #e11d48;
+            z-index: 10;
+        }
+
+        .slice {
+            position: absolute;
+            width: 50%;
+            height: 50%;
+            transform-origin: 100% 100%;
+            left: 0;
+            top: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .result-box {
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 1.25rem;
+            border-radius: 0.75rem;
+            background: white;
+            color: #374151;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+            border-left: 4px solid #004a99;
+            font-size: 0.95rem;
+            line-height: 1.4;
+        }
+
+        #instructions-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 31, 63, 0.95);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+
+    <div id="instructions-overlay">
+        <div class="bg-white rounded-3xl shadow-2xl max-w-2xl w-full p-8 md:p-10 overflow-y-auto max-h-[90vh]">
+            <div class="text-center mb-6">
+                <span class="bg-blue-100 text-blue-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Actividad</span>
+                <h2 class="text-3xl font-black text-blue-900 mt-2 italic">Brindemos solución</h2>
+                <p class="text-blue-600 font-bold uppercase tracking-tighter text-sm mt-1">Conducta 3</p>
+            </div>
+           
+            <div class="space-y-4 text-gray-700 leading-relaxed text-sm md:text-base">
+                <ul class="list-disc ml-5 space-y-2">
+                    <li>Reúnete con tu equipo y organícense en parejas.</li>
+                    <li>Dentro de cada pareja, uno asumirá el rol de cliente y el otro el de colaborador.</li>
+                    <li>Si te corresponde el rol de cliente, gira las ruletas:
+                        <ul class="list-[circle] ml-6 mt-2 space-y-2 text-gray-600">
+                            <li>En la primera ruleta encontrarás la necesidad o problema de un cliente que visita Farmatodo.</li>
+                            <li>En la segunda ruleta tendrás el contexto de la condición en las que sucede la interacción entre el colaborador y el cliente.</li>
+                        </ul>
+                    </li>
+                    <li class="mt-2">Si estás en el rol de colaborador, dispones de un minuto para proponer soluciones a la situación planteada.</li>
+                </ul>
+               
+                <div class="bg-blue-50 p-4 rounded-xl border-l-4 border-blue-500 mt-4">
+                    <p class="mb-2">Al finalizar tu intervención, el resto del grupo analizará la interacción y reflexionará sobre las siguientes preguntas:</p>
+                    <ul class="list-disc ml-5 space-y-1 font-semibold text-blue-900">
+                        <li>¿Escuchó activamente al cliente?</li>
+                        <li>¿Ofreció una solución factible?</li>
+                        <li>¿Acompañó al cliente hasta el final del proceso?</li>
+                    </ul>
+                </div>
+            </div>
+
+            <button onclick="hideInstructions()" class="w-full mt-8 bg-blue-700 hover:bg-blue-800 text-white font-black py-4 rounded-2xl shadow-lg transition text-lg">
+                ¡ENTENDIDO! COMENZAR
+            </button>
+        </div>
+    </div>
+
+    <div class="max-w-6xl mx-auto">
+        <header class="text-center mb-8">
+            <h1 class="text-4xl font-extrabold text-white mb-2 italic uppercase tracking-tight">Brindemos solución</h1>
+            <p class="text-blue-100 text-lg">Conducta 3: Brindo soluciones al cliente</p>
+        </header>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-16 mb-8">
+            <div class="flex flex-col items-center">
+                <h3 class="text-xl font-bold mb-6 text-white uppercase tracking-wide">Necesidad del Cliente</h3>
+                <div class="wheel-container">
+                    <div class="arrow"></div>
+                    <div id="wheel-client" class="wheel"></div>
+                </div>
+                <button onclick="spin('client')" class="mt-8 bg-white text-blue-900 font-black py-3 px-8 rounded-full shadow-lg active:scale-95 transition hover:bg-blue-50">
+                    GIRAR NECESIDAD
+                </button>
+                <div id="res-client" class="result-box mt-6 w-full italic text-gray-400">
+                    Esperando giro...
+                </div>
+            </div>
+
+            <div class="flex flex-col items-center">
+                <h3 class="text-xl font-bold mb-6 text-white uppercase tracking-wide">Contexto / Condición</h3>
+                <div class="wheel-container">
+                    <div class="arrow"></div>
+                    <div id="wheel-cond" class="wheel"></div>
+                </div>
+                <button onclick="spin('cond')" class="mt-8 bg-white text-blue-900 font-black py-3 px-8 rounded-full shadow-lg active:scale-95 transition hover:bg-blue-50">
+                    GIRAR CONTEXTO
+                </button>
+                <div id="res-cond" class="result-box mt-6 w-full italic text-gray-400">
+                    Esperando giro...
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+            <div class="bg-white rounded-2xl shadow-xl p-6 border-t-4 border-red-500 text-center">
+                <h4 class="text-gray-400 font-bold uppercase text-xs mb-2">Cronómetro</h4>
+                <div id="timer" class="text-5xl font-black text-gray-800 mb-4 tabular-nums">01:00</div>
+                <div class="flex justify-center gap-3">
+                    <button id="timer-btn" onclick="toggleTimer()" class="bg-gray-800 text-white px-8 py-2 rounded-lg font-bold hover:bg-black transition">INICIAR</button>
+                    <button onclick="resetTimer()" class="bg-gray-100 text-gray-600 px-4 py-2 rounded-lg font-bold hover:bg-gray-200 transition">↺</button>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl shadow-xl p-6 border-t-4 border-blue-500">
+                <h4 class="text-gray-400 font-bold uppercase text-xs mb-4 text-center">Registro de Turno</h4>
+                <div class="space-y-3">
+                    <div class="relative">
+                        <input type="text" id="store-search" placeholder="Buscar tienda..."
+                               class="w-full px-4 py-2 border-2 border-gray-100 rounded-lg focus:border-blue-300 outline-none text-gray-700 text-sm font-medium"
+                               oninput="filterStores()">
+                    </div>
+                    <select id="store-select" class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-600 outline-none bg-white text-gray-800 font-semibold">
+                        <option value="" disabled selected>Selecciona tu Tienda...</option>
+                    </select>
+                    <button onclick="saveParticipation()" id="save-btn" class="w-full bg-blue-600 text-white font-black py-3 rounded-xl hover:bg-blue-700 transition disabled:opacity-30 uppercase" disabled>
+                        REGISTRAR TURNO
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-2xl shadow-xl overflow-hidden mb-12">
+            <div class="bg-gray-50 px-6 py-4 border-b flex justify-between items-center">
+                <h3 class="font-bold text-gray-600 uppercase text-xs">Historial</h3>
+                <span id="counter-badge" class="bg-blue-600 text-white text-[10px] px-2 py-0.5 rounded-full font-bold uppercase">0 TURNOS</span>
+            </div>
+            <div class="max-h-80 overflow-y-auto text-gray-700">
+                <table class="w-full text-left">
+                    <tbody id="history-body" class="divide-y text-sm"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // CONFIGURACIÓN: PEGA AQUÍ TU URL DE GOOGLE APPS SCRIPT
+        const URL_GOOGLE_SHEETS = "TU_URL_AQUI";
+
+        const storeList = ["ACERINA", "FARMACIA EL BOSQUE", "FARMACIA EL PARQUE", "FARMACIA JIRAHARA", "FARMACIA LA CIENCIA", "FARMACIA LA FLORESTA", "FARMACIA SALAS", "FARMACIA ZULY", "FARMATODO ACERO", "FARMATODO ACONCAGUA", "FARMATODO ADELMIRA", "FARMATODO AGATA", "FARMATODO AGUAMARINA", "FARMATODO ALBITA", "FARMATODO ALFA", "FARMATODO ALPES", "FARMATODO ALTOZANO", "FARMATODO ALUMINIO", "FARMATODO AMATISTA", "FARMATODO AMBAR", "FARMATODO ANITA", "FARMATODO ANTINEA", "FARMATODO ARABELLA", "FARMATODO ARAGUANEY", "FARMATODO ARAURE", "FARMATODO ARCO", "FARMATODO ARELIS", "FARMATODO AUTANA", "FARMATODO AV MORAN", "FARMATODO BAMBU", "FARMATODO BARROCA", "FARMATODO BELLA VISTA", "FARMATODO BOULEVART DE CATIA", "FARMATODO CAFETAL", "FARMATODO CAMINITO", "FARMATODO CARICUAO", "FARMATODO CARIRUBANA", "FARMATODO CARLOTA", "FARMATODO CEDRO", "FARMATODO CHAPARRAL", "FARMATODO CIELO", "FARMATODO CLAVELINAS", "FARMATODO CONGRESO", "FARMATODO CORAL", "FARMATODO CORINA", "FARMATODO COSTA LAGO", "FARMATODO COSTA SUR", "FARMATODO CRISTAL", "FARMATODO CUARTEL BARALT", "FARMATODO CUARZO", "FARMATODO DANIELA", "FARMATODO DANILA", "FARMATODO DAVID", "FARMATODO DAYSI", "FARMATODO DELTA", "FARMATODO DIAMANTE", "FARMATODO EL AVILA", "FARMATODO EL SAMAN", "FARMATODO ELEANOR", "FARMATODO ELIZABETH", "FARMATODO ELSIS", "FARMATODO ENSO", "FARMATODO ESCALANTE", "FARMATODO ESMERALDA", "FARMATODO ESTRELLA MARINA", "FARMATODO EXPRESO", "FARMATODO FRANCISCO", "FARMATODO FUERZAS ARMADAS", "FARMATODO GABRIEL", "FARMATODO GERMAN", "FARMATODO GINEBRA", "FARMATODO GISELA", "FARMATODO GRACIELA", "FARMATODO GRANATE", "FARMATODO GREGORIO", "FARMATODO GRISELDA", "FARMATODO GUATAPARO", "FARMATODO HERNAN DE JESUS", "FARMATODO INDIGO", "FARMATODO INDIO MARA", "FARMATODO IRENE", "FARMATODO ISABELLA", "FARMATODO JADE", "FARMATODO JENNIFER", "FARMATODO JOSE MIGUEL", "FARMATODO JUAN BAUTISTA", "FARMATODO JUNIN", "FARMATODO KAVAC", "FARMATODO LA ASUNCION", "FARMATODO LA ESQUINA", "FARMATODO LA JOYA", "FARMATODO LA MATERNIDAD", "FARMATODO LA PLATA", "FARMATODO LA RESTINGA", "FARMATODO LA VELA", "FARMATODO LAGOMAR", "FARMATODO LAS SALINAS", "FARMATODO LIDER", "FARMATODO LILIANA", "FARMATODO LOS ARENALES", "FARMATODO LOS CEREZOS", "FARMATODO LOS JARDINES DEL VALLE", "FARMATODO LUIS", "FARMATODO LUZMAR", "FARMATODO MADRE CABRINI", "FARMATODO MALVINA", "FARMATODO MANANTIAL", "FARMATODO MANGLAR", "FARMATODO MARFIL", "FARMATODO MARIA ANTONIETA", "FARMATODO MARIANA", "FARMATODO MARIAS", "FARMATODO MARINERA", "FARMATODO MARTA", "FARMATODO MARYCARMEN", "FARMATODO MELANIE", "FARMATODO MERCEDES", "FARMATODO METROCENTER", "FARMATODO MEYBY", "FARMATODO MIGUEL", "FARMATODO MILAGROS", "FARMATODO MIRAMONTES", "FARMATODO MIRENA", "FARMATODO MONICA", "FARMATODO MONJES", "FARMATODO MONTANAL", "FARMATODO MUCURA", "FARMATODO NACAR", "FARMATODO NATALIA", "FARMATODO NELLYS", "FARMATODO NERIDA", "FARMATODO NUEVA CARACAS", "FARMATODO OCUMITO", "FARMATODO ODISEA", "FARMATODO OFELIA", "FARMATODO OLIVO", "FARMATODO OMEGA", "FARMATODO OPALO", "FARMATODO ORO", "FARMATODO ORO NEGRO", "FARMATODO PALMA REAL", "FARMATODO PAMPATAR", "FARMATODO PASEO CARONI", "FARMATODO PATRIA", "FARMATODO PEDREGAL", "FARMATODO PEDRO LUIS", "FARMATODO PERLA", "FARMATODO PIEDRA LUNA", "FARMATODO PIRINEOS", "FARMATODO PLAYA GRANDE", "FARMATODO PLAYA LIDO", "FARMATODO PLAZA CARICUAO", "FARMATODO PORVENIR", "FARMATODO PUNCERES", "FARMATODO RAFAEL TEODORO", "FARMATODO REGULO", "FARMATODO RIOFARO", "FARMATODO ROBLE", "FARMATODO ROMANA", "FARMATODO ROSARIO", "FARMATODO ROXANA", "FARMATODO RUBI", "FARMATODO SAMBIL LA CANDELARIA 2", "FARMATODO SAN PASTOR", "FARMATODO SCARLET", "FARMATODO SERRANIA", "FARMATODO SERVANDO", "FARMATODO SETENTA", "FARMATODO SIETE COLINAS", "FARMATODO SORAYA", "FARMATODO SUSANA", "FARMATODO TEO", "FARMATODO TEPUY", "FARMATODO TEREPAIMA", "FARMATODO TOBOGAN", "FARMATODO TOPACIO", "FARMATODO TORRE EUROPA", "FARMATODO TRINCHERAS", "FARMATODO TRUJILLO", "FARMATODO TUNANTAL", "FARMATODO TURQUESA", "FARMATODO UMBRAL", "FARMATODO UNDA", "FARMATODO VENECIA", "FARMATODO VENTUARI", "FARMATODO VERTIENTE", "FARMATODO VILLA GRANADA", "FARMATODO YADIRA", "FARMATODO ZAFIRO", "FARMATODO ZONA FRANCA", "FARMATODO CHUAO", "FARMATODO ZONA INDUSTRIAL", "ONIX", "FARMATODO LA VEREDA", "FARMATODO ZUBILLAGA HERMANOS", "FARMATODO LAS DELICIAS", "FARMATODO VALLE DE LA PASCUA", "ESTACION SUR CHARALLAVE", "FARMATODO LA CASTELLANA", "CECILIO ACOSTA", "FARMATODO LA ISABELICA", "FARMATODO MAIQUETIA", "FARMATODO CUMBRES", "FARMATODO OBELISCO", "FARMATODO ORINOCO", "CENTRO ANDINO", "PARQUE LA 93", "CAJICA", "USAQUEN", "NAVARRA", "COUNTRY", "HAYUELOS", "CALLE 74", "SANTA ISABEL", "NORMANDIA", "CENTRO INTERNACIONAL", "CALLE 170", "TITAN", "PEPE SIERRA", "BELMIRA", "CALLE 119", "CENTRO COMERCIAL UNICENTRO", "CEDRITOS 1", "LA FLORA", "LA CABRERA", "CEDRITOS 2", "PLAZA DEL PARQUE", "CALLE 80", "VILLA COUNTRY", "CHIA CAJICA", "BELLA SUIZA", "CENTRO COMERCIAL SANTAFE", "VILLA CAROLINA", "ATLANTIS", "SUBA CAMPANELLA", "COLORES", "PLAZA CENTRAL", "SABANETA", "COLINA", "CENTRO MAYOR", "SALITRE PLAZA", "CHIPICHAPE", "PASADENA", "CARRERA 16", "SAN PEDRO", "GALERIAS", "CALLE 147", "CALLE 127", "NOGAL", "PLAZA EL SOL", "BRITALIA NORTE", "COSMOS", "AUTONORTE", "EL PRADO SANTA MARTA", "NOVALITO", "ALTOS DEL PRADO", "SIERRA NEVADA", "CARRERA 13", "GUATAPURI", "MALL PLAZA BARRANQUILLA", "SALITRE", "RODADERO", "VIVA BARRANQUILLA", "PLAZA CAMPESTRE", "CONECTA", "GRAN ESTACION", "EL RECREO", "PRIMAVERA URBANA", "SAN MARTIN", "ANTARES", "AVENIDA 19", "CALLE 100", "COTA", "LA CALLEJA", "CC SAN NICOLAS", "NIEVES", "ROSALES", "RINCON CHICO", "MIRAMAR", "EL BUQUE", "MANGA", "CASTILLO GRANDE", "DIVER PLAZA", "PROVENZA", "PEDRO HEREDIA", "CIUDAD AMURALLADA", "CALLE 84", "BERNARDO", "QUINTAS DE DON SIMON", "VALLE DE LILI", "AV 3RA NORTE", "PANCE", "CIUDAD JARDIN", "LIBERTADORES", "LIMONAR", "VARIANTE CHIA", "SAN LUCAS", "LA SEBASTIANA", "LOS PARRA", "VERSALLES", "UNICENTRO CALI", "RUITOQUE", "AVENIDA LAS VEGAS", "EL TESORO", "GRANADA", "AVENIDA DEL RIO", "LOMA DE LOS BERNAL", "MILLA DE ORO", "LA CEIBA 2", "MALL DEL ESTE", "LAURELES", "CC COUNTRY MALL", "CIUDAD DEL RIO", "GOLF", "MALL PLAZA CALI", "LA CASTELLANA", "LA CALERA", "SAN MATEO", "CENTRO CUCUTA", "CARRERA 19", "LA VISITACION", "SOTOMAYOR", "AVENIDA 0", "CARRERA 27", "CA?AVERAL", "ALTOS DE CABECERA", "LLANO GRANDE", "BARRO BLANCO", "EL CABLE7280186211159", "LA FLORIDA", "ALTO de las PALMAS", "PINARES", "CERRITOS", "AV LAS AMERICAS", "MAZUREN", "CC ARKADIA", "CC ENSUE?O", "CC MAYORCA", "AV. GUADALUPE", "LOS PATIOS", "CC SANTA FE MEDELLIN", "AVENIDA CENTENARIO", "EL VERGEL"].sort();
+
+        const clientSituations = [
+            "El cliente busca un producto que no está disponible en Farmatodo.",
+            "El cliente no tiene claro qué producto necesita.",
+            "El cliente quiere un medicamento psicotrópico urgente y tiene poco tiempo.",
+            "El cliente pide un producto que vio en redes pero no conoce el nombre.",
+            "El cliente encuentra el producto que buscaba, pero no es el precio que esperaba.",
+            "El cliente quiere comparar opciones antes de decidir.",
+            "El cliente solicita un producto que solo está disponible en otra tienda.",
+            "El cliente quiere cambiar un producto por otro similar.",
+            "El cliente solicita información y hace muchas preguntas.",
+            "El cliente está indeciso y no logra tomar una decisión.",
+            "El cliente necesita orientación porque es su primera compra.",
+            "El cliente solicita un producto que no coincide con su presupuesto.",
+            "El cliente pregunta en tienda por una promoción o descuento que está disponible sólo en la app y web.",
+            "El cliente quiere una recomendación personalizada.",
+            "El cliente quiere un producto similar al de la competencia pero más económico.",
+            "El cliente no entiende las diferencias entre productos.",
+            "El cliente necesita una solución para otra persona.",
+            "El cliente pide ayuda porque no encuentra lo que busca.",
+            "El cliente quiere devolver un producto abierto."
+        ];
+
+        const conditionSituations = [
+            "Hay mucha gente en la tienda.", "El cliente está apurado.", "El cliente se muestra molesto.",
+            "El supervisor no se encuentra.", "Hay fila en caja.", "El cliente ya preguntó a otro colaborador.",
+            "La solución requiere más tiempo del esperado.", "El cliente no quiere esperar.",
+            "El producto requiere explicación técnica.", "El cliente está acompañado y opina más de una persona.",
+            "El cliente compara con otra tienda.", "El cliente duda de todo tipo de información.",
+            "El cliente interrumpe constantemente.", "El cliente está indeciso y no planea realizar la compra en el momento.",
+            "El tiempo de atención es limitado.", "El cliente se distrae fácilmente.",
+            "El cliente quiere un producto complementario y no sabe cual", "El cliente se frustra con facilidad.",
+            "Hay poco personal en el turno y debes atender múltiples tareas.", "La información depende de validación externa."
+        ];
+
+        let results = { client: "", cond: "" };
+        let state = { client: false, cond: false };
+        let history = [];
+
+        function hideInstructions() { document.getElementById('instructions-overlay').style.display = 'none'; }
+
+        function createSlices(wheelId, list, colors) {
+            const wheel = document.getElementById(wheelId);
+            const deg = 360 / list.length;
+            list.forEach((txt, i) => {
+                const slice = document.createElement('div');
+                slice.className = 'slice';
+                slice.style.transform = `rotate(${i * deg}deg) skewY(${90 - deg}deg)`;
+                slice.style.backgroundColor = colors[i % colors.length];
+                wheel.appendChild(slice);
+            });
+        }
+
+        createSlices('wheel-client', clientSituations, ['#0056b3', '#007bff', '#3399ff', '#66b2ff']);
+        createSlices('wheel-cond', conditionSituations, ['#003366', '#004a99', '#0066cc', '#0080ff']);
+
+        let rot = { client: 0, cond: 0 };
+
+        function spin(type) {
+            const list = type === 'client' ? clientSituations : conditionSituations;
+            const wheel = document.getElementById(`wheel-${type}`);
+            const resBox = document.getElementById(`res-${type}`);
+            state[type] = false;
+            document.getElementById('save-btn').disabled = true;
+           
+            const r = Math.floor(Math.random() * 360) + 1440;
+            rot[type] += r;
+            wheel.style.transform = `rotate(-${rot[type]}deg)`;
+            resBox.innerText = "Girando...";
+            resBox.classList.add('text-gray-400');
+
+            setTimeout(() => {
+                const finalDeg = rot[type] % 360;
+                const idx = Math.floor(finalDeg / (360 / list.length));
+                results[type] = list[idx];
+                resBox.innerHTML = `<span class="text-gray-800 font-bold">${results[type]}</span>`;
+                resBox.classList.remove('text-gray-400');
+                state[type] = true;
+                if (state.client && state.cond) {
+                    document.getElementById('save-btn').disabled = false;
+                    resetTimer(); toggleTimer();
+                }
+            }, 4000);
+        }
+
+        let timer = 60, interval = null;
+        function updateT() { document.getElementById('timer').innerText = `00:${timer < 10 ? '0'+timer : timer}`; }
+        function toggleTimer() {
+            const btn = document.getElementById('timer-btn');
+            if(interval) { clearInterval(interval); interval = null; btn.innerText = "REANUDAR"; }
+            else {
+                btn.innerText = "PAUSAR";
+                interval = setInterval(() => {
+                    timer--; updateT();
+                    if(timer <= 0) { clearInterval(interval); interval = null; btn.innerText = "¡TIEMPO!"; btn.classList.add('bg-red-600'); }
+                }, 1000);
+            }
+        }
+        function resetTimer() { clearInterval(interval); interval = null; timer = 60; updateT(); document.getElementById('timer-btn').innerText = "INICIAR"; document.getElementById('timer-btn').classList.remove('bg-red-600'); }
+
+        function filterStores() {
+            const searchTerm = document.getElementById('store-search').value.toUpperCase();
+            const sel = document.getElementById('store-select');
+            const currentSelection = sel.value;
+            sel.innerHTML = '<option value="" disabled>Selecciona tu Tienda...</option>';
+            const filteredStores = storeList.filter(store => store.includes(searchTerm));
+            filteredStores.forEach(s => {
+                const o = document.createElement('option');
+                o.value = s; o.innerText = s;
+                if (s === currentSelection) o.selected = true;
+                sel.appendChild(o);
+            });
+            if (!sel.value && !currentSelection) { sel.options[0].selected = true; }
+        }
+
+        // --- FUNCIÓN DE GUARDADO MODIFICADA PARA GOOGLE SHEETS ---
+        function saveParticipation() {
+            const store = document.getElementById('store-select').value;
+            if(!store) {
+                alert("Por favor selecciona una tienda antes de registrar.");
+                return;
+            }
+
+            // 1. Deshabilitar botón para evitar múltiples clics
+            const btn = document.getElementById('save-btn');
+            btn.disabled = true;
+            btn.innerText = "GUARDANDO...";
+
+            // 2. Enviar datos al Google Sheets Webhook
+            fetch(URL_GOOGLE_SHEETS, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ "tienda": store })
+            })
+            .then(() => {
+                console.log("Datos enviados al Sheets");
+                // 3. Si se envió bien, actualizamos el historial visual
+                actualizarHistorialVisual(store);
+                btn.innerText = "REGISTRAR TURNO";
+                alert("¡Turno registrado en la base de datos!");
+            })
+            .catch(err => {
+                console.error("Error al guardar:", err);
+                alert("Hubo un error al conectar con el servidor.");
+                btn.disabled = false;
+                btn.innerText = "REGISTRAR TURNO";
+            });
+        }
+
+        function actualizarHistorialVisual(store) {
+            history.unshift({ store, client: results.client, cond: results.cond });
+            const body = document.getElementById('history-body');
+            body.innerHTML = history.map(h => `
+                <tr class="border-b hover:bg-gray-50">
+                    <td class="p-3 align-top w-1/3 font-bold text-blue-900">${h.store}</td>
+                    <td class="p-3 text-xs">
+                        <div class="text-gray-800 font-semibold mb-1">N: ${h.client}</div>
+                        <div class="text-blue-600">C: ${h.cond}</div>
+                    </td>
+                </tr>
+            `).join('');
+            document.getElementById('counter-badge').innerText = `${history.length} TURNOS`;
+        }
+
+        window.onload = () => { filterStores(); };
+    </script>
+</body>
+</html>
